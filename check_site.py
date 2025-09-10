@@ -42,3 +42,28 @@ def send_whatsapp(message_text):
         try:
             body = resp.json()
         except Exception:
+            body = resp.text
+        return resp.status_code, body
+    except requests.exceptions.RequestException as e:
+        return None, str(e)
+
+if __name__ == "__main__":
+ok, status_code, error = check_site()
+
+
+if ok and status_code == 200:
+print(f"OK: {WEBSITE_URL} returned 200")
+sys.exit(0)
+
+
+# Construct message depending on the result
+print("=== WEBSITE ALERT (test mode) ===")
+print(message)
+if ok and status_code is not None:
+    print(f"(HTTP status returned by check: {status_code})")
+else:
+    print(f"(Network error during check: {error})")
+
+
+# Exit with non-zero so CI shows failure (optional)
+sys.exit(1)
