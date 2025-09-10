@@ -52,8 +52,6 @@ if __name__ == "__main__":
     ok, status_code, error = check_site()
 
     if ok and status_code == 200:
-        urlmsg = "https://api.callmebot.com/whatsapp.php?phone=66804322782&text=Web+is+up&apikey=5621884"
-        requests.get(urlmsg)
         print(f"OK: {WEBSITE_URL} returned 200")
         sys.exit(0)
 
