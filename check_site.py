@@ -52,6 +52,8 @@ if __name__ == "__main__":
     ok, status_code, error = check_site()
 
     if ok and status_code == 200:
+        urlmsg = https://api.callmebot.com/whatsapp.php?phone=66804322782&text=Web+is+up&apikey=5621884
+        requests.get(urlmsg)
         print(f"OK: {WEBSITE_URL} returned 200")
         sys.exit(0)
 
@@ -64,8 +66,12 @@ if __name__ == "__main__":
     print("=== WEBSITE ALERT (test mode) ===")
     print(message)
     if ok and status_code is not None:
+        urlmsg = https://api.callmebot.com/whatsapp.php?phone=66804322782&text=Web+is+down&apikey=5621884
+        requests.get(urlmsg)
         print(f"(HTTP status returned by check: {status_code})")
     else:
+        urlmsg = https://api.callmebot.com/whatsapp.php?phone=66804322782&text=Web+is+down&apikey=5621884
+        requests.get(urlmsg)
         print(f"(Network error during check: {error})")
 
     # Exit with non-zero so CI shows failure (optional)
