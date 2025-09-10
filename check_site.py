@@ -65,10 +65,12 @@ else:
 message = f"🚨 Website Alert: {WEBSITE_URL} appears DOWN — network error: {error}"
 
 
-print("Sending WhatsApp alert:", message)
-resp_status, resp_body = send_whatsapp(message)
-print("WhatsApp API response status:", resp_status)
-print("WhatsApp API response body:", resp_body)
+print("=== WEBSITE ALERT (test mode) ===")
+print(message)
+if ok and status_code is not None:
+    print(f"(HTTP status returned by check: {status_code})")
+else:
+    print(f"(Network error during check: {error})")
 
 
 # Exit with non-zero so CI shows failure (optional)
