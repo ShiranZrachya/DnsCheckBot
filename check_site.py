@@ -47,23 +47,26 @@ def send_whatsapp(message_text):
     except requests.exceptions.RequestException as e:
         return None, str(e)
 
+
 if __name__ == "__main__":
-ok, status_code, error = check_site()
+    ok, status_code, error = check_site()
 
+    if ok and status_code == 200:
+        print(f"OK: {WEBSITE_URL} returned 200")
+        sys.exit(0)
 
-if ok and status_code == 200:
-print(f"OK: {WEBSITE_URL} returned 200")
-sys.exit(0)
+    # Construct message depending on the result
+    if ok and status_code is not None:
+        message = f"🚨 Website Alert: {WEBSITE_URL} is DOWN — HTTP status {status_code}."
+    else:
+        message = f"🚨 Website Alert: {WEBSITE_URL} appears DOWN — network error: {error}"
 
+    print("=== WEBSITE ALERT (test mode) ===")
+    print(message)
+    if ok and status_code is not None:
+        print(f"(HTTP status returned by check: {status_code})")
+    else:
+        print(f"(Network error during check: {error})")
 
-# Construct message depending on the result
-print("=== WEBSITE ALERT (test mode) ===")
-print(message)
-if ok and status_code is not None:
-    print(f"(HTTP status returned by check: {status_code})")
-else:
-    print(f"(Network error during check: {error})")
-
-
-# Exit with non-zero so CI shows failure (optional)
-sys.exit(1)
+    # Exit with non-zero so CI shows failure (optional)
+    sys.exit(1)
